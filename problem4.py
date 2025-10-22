@@ -30,9 +30,11 @@ def count_words(filename):
     Returns:
         int: Total number of words
     """
-    # TODO: Open file and count words
-    # Hint: Use split() to separate words
-    pass
+    with open(filename, 'r') as file:
+        words = file.read().split()
+        return len(words)
+    
+
 
 
 def count_lines(filename):
@@ -44,10 +46,11 @@ def count_lines(filename):
 
     Returns:
         int: Total number of lines
-    """
-    # TODO: Open file and count lines
-    pass
-
+        """
+    with open(filename, 'r') as file:
+        lines = file.readlines()
+        return len(lines)
+       
 
 def count_characters(filename, include_spaces=True):
     """
@@ -60,9 +63,12 @@ def count_characters(filename, include_spaces=True):
     Returns:
         int: Total number of characters
     """
-    # TODO: Open file and count characters
-    # If include_spaces is False, don't count spaces
-    pass
+    with open(filename, 'r') as file:
+        characters = file.read()
+        if include_spaces:
+            return len(characters)
+        else:
+            return len(characters.replace(' ', ''))
 
 
 def find_longest_word(filename):
@@ -75,9 +81,14 @@ def find_longest_word(filename):
     Returns:
         str: The longest word found
     """
-    # TODO: Find the longest word
-    # Hint: You might need to remove punctuation
-    pass
+    with open(filename, 'r') as file:
+        words = file.read().split()
+        longest_word = ""
+        for word in words:
+            if len(word) > len(longest_word):
+                longest_word = word
+        return longest_word
+    
 
 
 def word_frequency(filename):
@@ -95,13 +106,20 @@ def word_frequency(filename):
 
     frequency = {}
 
-    # TODO: Open file
-    # TODO: Read all words
-    # TODO: Convert to lowercase
-    # TODO: Remove punctuation (use string.punctuation)
-    # TODO: Count frequency of each word
+    with open(filename, 'r') as file:
+        words = file.read().split()
+        # Remove possessive 's first, then remove remaining punctuation
+        clean_words = []
+        for word in words:
+            word = word.lower().replace("'s", "")  # Remove possessive
+            clean_word = ''.join(char for char in word if char not in string.punctuation)
+            if clean_word:
+                clean_words.append(clean_word)
+        
+        for word in clean_words:
+            frequency[word] = frequency.get(word, 0) + 1
+        return frequency
 
-    return frequency
 
 
 def analyze_file(filename):
