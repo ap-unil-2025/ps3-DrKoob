@@ -30,15 +30,17 @@ def get_numbers_from_user():
 
 
 def analyze_numbers(numbers):
-    analysis = {
+    if len(numbers) == 0:
+        return None
+    else: 
+        return {
         "count": len(numbers),
         "sum": sum(numbers),
-        "average": sum(numbers) / len(numbers),
+        "average": sum(numbers) / len(numbers) if numbers else 0,
         "minimum": min(numbers),
         "maximum": max(numbers),
         "even_count": sum(1 for number in numbers if number % 2 == 0),
         "odd_count": sum(1 for number in numbers if number % 2 != 0)
-
     }
     return analysis
 
